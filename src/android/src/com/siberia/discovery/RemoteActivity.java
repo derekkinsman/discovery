@@ -12,11 +12,6 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import tv.ouya.console.api.OuyaController;
-import tv.ouya.remote.shared.BaseMessage;
-import tv.ouya.remote.shared.messages.KeyEventMessage;
-import tv.ouya.remote.shared.messages.MotionEventMessage;
-import tv.ouya.remote.shared.messages.SystemMenuMessage;
 
 import java.io.IOException;
 
