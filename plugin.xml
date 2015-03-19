@@ -29,10 +29,10 @@
         <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
       </config-file>
 
-      <source-file src="src/android/src/com/siberia/discovery/ClientActivity.java" target-dir="" />
-      <source-file src="src/android/src/com/siberia/discovery/RemoteActivity.java" target-dir="" />
-      <source-file src="src/android/src/com/siberia/discovery/util/DiscoverOUYAActivity.java" target-dir="" />
-      <source-file src="src/android/src/com/siberia/discovery/util/ServiceAdapter.java" target-dir="" />
+      <source-file src="src/android/src/com/siberia/discovery/ClientActivity.java" target-dir="src/com/siberia/discovery" />
+      <source-file src="src/android/src/com/siberia/discovery/RemoteActivity.java" target-dir="src/com/siberia/discovery" />
+      <source-file src="src/android/src/com/siberia/discovery/util/DiscoverOUYAActivity.java" target-dir="src/com/siberia/discovery/util" />
+      <source-file src="src/android/src/com/siberia/discovery/util/ServiceAdapter.java" target-dir="src/com/siberia/discovery/util" />
       <source-file src="src/android/lib/kryonet-2.21-all.jar" target-dir="libs" />
     </platform>
 
