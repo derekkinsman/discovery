@@ -19,7 +19,7 @@
     <platform name="android">
       <config-file target="res/xml/config.xml" parent="/*">
         <feature name="Discovery" >
-          <param name="android-package" value="com.siberia.discovery.ClientActivity"/>
+          <param name="android-package" value="com.siberia.discovery.Discovery"/>
           <param name="onload" value="true" />
         </feature>
       </config-file>
@@ -29,10 +29,7 @@
         <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
       </config-file>
 
-      <source-file src="src/android/src/com/siberia/discovery/ClientActivity.java" target-dir="src/com/siberia/discovery" />
-      <source-file src="src/android/src/com/siberia/discovery/RemoteActivity.java" target-dir="src/com/siberia/discovery" />
-      <source-file src="src/android/src/com/siberia/discovery/util/DiscoverOUYAActivity.java" target-dir="src/com/siberia/discovery/util" />
-      <source-file src="src/android/src/com/siberia/discovery/util/ServiceAdapter.java" target-dir="src/com/siberia/discovery/util" />
+      <source-file src="src/android/src/com/siberia/discovery/Discovery.java" target-dir="src/com/siberia/discovery" />
       <source-file src="src/android/lib/kryonet-2.21-all.jar" target-dir="libs" />
     </platform>
 
