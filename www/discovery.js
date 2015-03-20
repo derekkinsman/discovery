@@ -1,7 +1,8 @@
+var exec = require('cordova/exec');
 var Discovery = function() {};
 
-Discovery.prototype.say = function(success, fail) {
-    cordova.exec(success, fail, "Discovery", "identify", []);
+Discovery.prototype.identify = function(success, fail) {
+    exec(success, fail, "Discovery", "identify", []);
 };
 
 var discovery = new Discovery();
