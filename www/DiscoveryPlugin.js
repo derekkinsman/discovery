@@ -1,19 +1,25 @@
-window.initChat = function(successCallback, errorCallback) {
+var exec = require('cordova/exec');
+
+function Discovery() {}
+
+Discovery.prototype.initChat = function(successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "Discovery", "initChat", []);
 };
 
-window.advertizeChat = function(successCallback, errorCallback) {
+Discovery.prototype.advertizeChat = function(successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "Discovery", "advertizeChat", []);
 };
 
-window.discoverChat = function(successCallback, errorCallback) {
+Discovery.prototype.discoverChat = function(successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "Discovery", "discoverChat", []);
 };
 
-window.connectChat = function(successCallback, errorCallback) {
+Discovery.prototype.connectChat = function(successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "Discovery", "connectChat", []);
 };
 
-window.sendChatMessage = function(messageString, successCallback, errorCallback) {
+Discovery.prototype.sendChatMessage = function(messageString, successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "Discovery", "sendChatMessage", [messageString]);
 };
+
+module.exports = new Discovery();
