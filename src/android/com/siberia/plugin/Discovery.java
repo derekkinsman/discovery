@@ -20,30 +20,10 @@ public class Discovery extends CordovaPlugin {
     String serviceName = args.getString(0);
     String serviceType = args.getString(1);
     mNsdHelper = new NsdHelper(cordova.getActivity(), callbackContext, serviceName);
-    if (action.equals("initChat")) {
-      Log.d(TAG, "initChat");
-      // this.initChat(callbackContext);
-    }
 
-    else if (action.equals("advertizeChat")) {
-      Log.d(TAG, "advertizeChat");
-      // this.advertizeChat(callbackContext);
-    }
-
-    else if (action.equals("identify")) {
+    if (action.equals("identify")) {
       Log.d(TAG, "identify");
       mNsdHelper.discoverServices(serviceType);
-    }
-
-    else if (action.equals("connectChat")) {
-      Log.d(TAG, "connectChat");
-      // this.connectChat(callbackContext);
-    }
-
-    else if (action.equals("sendChatMessage")) {
-      Log.d(TAG, "sendChatMessage");
-      // String messageString = args.getString(0);
-      // this.sendChatMessage(callbackContext, messageString);
     }
 
     else {
