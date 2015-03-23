@@ -150,7 +150,7 @@ public class NsdHelper {
     serviceInfo.setServiceType("_ouyaremote._tcp.");
     serviceInfo.setPort(port);
 
-    mNsdManager = Context.getSystemService(mContext.NSD_SERVICE);
+    mNsdManager = mContext.getSystemService(mContext.NSD_SERVICE);
     mNsdManager.registerService(serviceInfo, NsdManager.PROTOCOL_DNS_SD, mRegistrationListener);
   }
 
