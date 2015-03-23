@@ -22,7 +22,7 @@ public class Discovery extends CordovaPlugin {
   // CordovaPlugin {{{
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-    if (action.equals("identify")) {
+    if (action.equals("startDiscovery")) {
       if (args.length() < 2) {
         callbackContext.error("identify requires serviceName and serviceType as arguments");
       }
