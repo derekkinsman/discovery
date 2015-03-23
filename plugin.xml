@@ -24,5 +24,6 @@
     <source-file src="src/android/com/siberia/plugin/NsdHelper.java" target-dir="src/com/siberia/plugin" />
     <source-file src="src/android/com/siberia/plugin/ChatConnection.java" target-dir="src/com/siberia/plugin" />
     <source-file src="src/android/com/siberia/plugin/Discovery.java" target-dir="src/com/siberia/plugin" />
+    <source-file src="src/android/com/siberia/plugin/CallbackContextHandler.java" target-dir="src/com/siberia/plugin" />
   </platform>
 </plugin>
