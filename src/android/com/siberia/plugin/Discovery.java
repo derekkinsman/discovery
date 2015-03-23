@@ -27,6 +27,8 @@ public class Discovery extends CordovaPlugin {
 
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    String serviceName = args.getString(0);
+    mNsdHelper = new NsdHelper(cordova.getActivity(), callbackContext, serviceName);
     if (action.equals("initChat")) {
       Log.d(TAG, "initChat");
       // this.initChat(callbackContext);
@@ -39,7 +41,8 @@ public class Discovery extends CordovaPlugin {
 
     else if (action.equals("identify")) {
       Log.d(TAG, "identify");
-      this.discoverServices(callbackContext);
+      // TODO: Get service type
+      mNsdHelper.discoverServices("");
     }
 
     else if (action.equals("connectChat")) {

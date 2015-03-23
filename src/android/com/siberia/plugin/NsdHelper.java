@@ -11,27 +11,31 @@ import android.util.Log;
 
 import java.net.InetAddress;
 
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class NsdHelper {
 
   Context mContext;
-  private Handler mHandler;
+  private CallbackContext mCallbackContext;
+  private String mServiceType;
 
   NsdManager mNsdManager;
   NsdManager.ResolveListener mResolveListener;
   NsdManager.DiscoveryListener mDiscoveryListener;
   NsdManager.RegistrationListener mRegistrationListener;
 
-  public static final String SERVICE_TYPE = "_http._tcp.";
-
   public static final String TAG = "NsdHelper";
-  public String mServiceName = "NsdChat";
+  public String mServiceName;
 
-  NsdServiceInfo mService;
-
-  public NsdHelper(Context context, Handler handler) {
+  public NsdHelper(Context context, CallbackContext callbackContext, String serviceName) {
     mContext = context;
-    mHandler = handler;
+    mCallbackContext = callbackContext;
+    mServiceName = serviceName;
     mNsdManager = (NsdManager) context.getSystemService(Context.NSD_SERVICE);
+    this.initializeNsd();
   }
 
   public void initializeNsd() {
@@ -53,7 +57,7 @@ public class NsdHelper {
       public void onServiceFound(NsdServiceInfo service) {
         // A service was found!  Do something with it.
         Log.d(TAG, "Service discovery success" + service);
-        if (!service.getServiceType().equals(SERVICE_TYPE)) {
+        if (!service.getServiceType().equals(mServiceType)) {
           // Service type is the string containing the protocol and
           // transport layer for this service.
           Log.d(TAG, "Unknown Service Type: " + service.getServiceType());
@@ -61,7 +65,7 @@ public class NsdHelper {
           // The name of the service tells the user what they'd be
           // connecting to. It could be "Bob's Chat App".
           Log.d(TAG, "Same machine: " + mServiceName);
-        } else if (service.getServiceName().contains("NsdChat")) {
+        } else if (service.getServiceName().contains(mServiceName)) {
           mNsdManager.resolveService(service, mResolveListener);
         }
       }
@@ -108,9 +112,20 @@ public class NsdHelper {
           Log.d(TAG, "Same IP.");
           return;
         }
-        mService = serviceInfo;
-        int port = mService.getPort();
-        InetAddress host = mService.getHost();
+        int port = serviceInfo.getPort();
+        InetAddress host = serviceInfo.getHost();
+        String hostAddress = host.getHostAddress();
+
+        JSONObject data = new JSONObject();
+        try {
+          data.put("port", port);
+          data.put("host", hostAddress);
+        } catch(JSONException e) {
+        }
+
+        PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+        result.setKeepCallback(true);
+        mCallbackContext.sendPluginResult(result);
       }
 
     };
@@ -124,7 +139,6 @@ public class NsdHelper {
         // Save the service name.  Android may have changed it in order to
         // resolve a conflict, so update the name you initially requested
         // with the name Android actually used.
-        mServiceName = NsdServiceInfo.getServiceName();
       }
 
       @Override
@@ -156,8 +170,9 @@ public class NsdHelper {
     mNsdManager.registerService(serviceInfo, NsdManager.PROTOCOL_DNS_SD, mRegistrationListener);
   }
 
-  public void discoverServices() {
-    mNsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
+  public void discoverServices(String serviceType) {
+    mServiceType = serviceType;
+    mNsdManager.discoverServices(mServiceType, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
   }
 
   public void stopDiscovery() {
