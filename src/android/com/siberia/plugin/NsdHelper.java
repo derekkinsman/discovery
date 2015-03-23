@@ -160,16 +160,6 @@ public class NsdHelper {
     };
   }
 
-  public void registerService(int port) {
-    NsdServiceInfo serviceInfo  = new NsdServiceInfo();
-    serviceInfo.setServiceName("Discovery");
-    serviceInfo.setServiceType("_ouyaremote._tcp.");
-    serviceInfo.setPort(port);
-
-    mNsdManager = Context.getSystemService(Context.NSD_SERVICE);
-    mNsdManager.registerService(serviceInfo, NsdManager.PROTOCOL_DNS_SD, mRegistrationListener);
-  }
-
   public void discoverServices(String serviceType) {
     mServiceType = serviceType;
     mNsdManager.discoverServices(mServiceType, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
@@ -177,10 +167,6 @@ public class NsdHelper {
 
   public void stopDiscovery() {
     mNsdManager.stopServiceDiscovery(mDiscoveryListener);
-  }
-
-  public NsdServiceInfo getChosenServiceInfo() {
-    return mService;
   }
 
   public void tearDown() {

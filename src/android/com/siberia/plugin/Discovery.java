@@ -113,10 +113,10 @@ public class Discovery extends CordovaPlugin {
   //   }
   // }
 
-  private void identify(CallbackContext callbackContext) {
-    final CallbackContext cbc = callbackContext;
-    mNsdHelper.discoverServices();
-  }
+  // private void identify(CallbackContext callbackContext) {
+  //   final CallbackContext cbc = callbackContext;
+  //   mNsdHelper.discoverServices();
+  // }
 
 
   // private void connectChat(CallbackContext callbackContext) {
