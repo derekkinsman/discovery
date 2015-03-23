@@ -26,24 +26,29 @@ public class Discovery extends CordovaPlugin {
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     if (action.equals("initChat")) {
-      this.initChat(callbackContext);
+      Log.d(TAG, "initChat");
+      // this.initChat(callbackContext);
     }
 
     else if (action.equals("advertizeChat")) {
-      this.advertizeChat(callbackContext);
+      Log.d(TAG, "advertizeChat");
+      // this.advertizeChat(callbackContext);
     }
 
     else if (action.equals("identify")) {
+      Log.d(TAG, "identify");
       this.discoverServices(callbackContext);
     }
 
     else if (action.equals("connectChat")) {
-      this.connectChat(callbackContext);
+      Log.d(TAG, "connectChat");
+      // this.connectChat(callbackContext);
     }
 
     else if (action.equals("sendChatMessage")) {
-      String messageString = args.getString(0);
-      this.sendChatMessage(callbackContext, messageString);
+      Log.d(TAG, "sendChatMessage");
+      // String messageString = args.getString(0);
+      // this.sendChatMessage(callbackContext, messageString);
     }
 
     else {
