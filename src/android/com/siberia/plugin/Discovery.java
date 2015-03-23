@@ -21,6 +21,7 @@ public class Discovery extends CordovaPlugin {
   NsdHelper mNsdHelper;
   private Handler mHandler;
   ChatConnection mConnection;
+  CallbackContextHandler ccHandler;
 
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -75,9 +76,11 @@ public class Discovery extends CordovaPlugin {
         }
       };
 
-      mConnection = new ChatConnection(mHandler);
+      mConnection = new ChatConnection(ccHandler);
+      //mConnection = new ChatConnection(mHandler);
 
-      mNsdHelper = new NsdHelper(cordova.getActivity(), mHandler);
+      mNsdHelper = new NsdHelper(cordova.getActivity(), ccHandler);
+      // mNsdHelper = new NsdHelper(cordova.getActivity(), mHandler);
       mNsdHelper.initializeNsd();
 
     } catch(Exception e) {

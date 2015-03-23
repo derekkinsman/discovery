@@ -44,7 +44,7 @@ public class NsdHelper {
 
       @Override
       public void onDiscoveryStarted(String regType) {
-      sendNotification("log", "Service discovery started");
+        sendNotification("log", "Service discovery started");
       }
 
       @Override
