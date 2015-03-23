@@ -18,6 +18,8 @@ import com.siberia.plugin.NsdHelper;
 
 public class Discovery extends CordovaPlugin {
 
+  public static final String TAG = "Discovery";
+
   NsdHelper mNsdHelper;
   private Handler mHandler;
   // ChatConnection mConnection;
