@@ -4,7 +4,7 @@
     <name>Discovery</name>
 
   <description>
-    Disco Plugin
+    Discovery Plugin
   </description>
 
   <asset src="www/DiscoveryPlugin.js" target="plugins/DiscoveryPlugin.js" />
@@ -23,6 +23,6 @@
 
     <source-file src="src/android/com/siberia/plugin/NsdHelper.java" target-dir="src/com/siberia/plugin" />
     <source-file src="src/android/com/siberia/plugin/ChatConnection.java" target-dir="src/com/siberia/plugin" />
-    <source-file src="src/android/com/siberia/plugin/Disco.java" target-dir="src/com/diberia/plugin" />
+    <source-file src="src/android/com/siberia/plugin/Discovery.java" target-dir="src/com/siberia/plugin" />
   </platform>
 </plugin>
