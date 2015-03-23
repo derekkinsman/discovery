@@ -44,25 +44,25 @@ public class NsdHelper {
 
       @Override
       public void onDiscoveryStarted(String regType) {
-      sendNotification("log", "Service discovery started");
+      Log.d("log", "Service discovery started");
       }
 
       @Override
       public void onServiceFound(NsdServiceInfo service) {
-        sendNotification("log", "Service discovery success" + service);
+        Log.d("log", "Service discovery success" + service);
         if (!service.getServiceType().equals(SERVICE_TYPE)) {
-          sendNotification("log", "Unknown Service Type: " + service.getServiceType());
+          Log.d("log", "Unknown Service Type: " + service.getServiceType());
         } else if (service.getServiceName().equals(mServiceName)) {
-          sendNotification("log", "Same machine: " + mServiceName);
+          Log.d("log", "Same machine: " + mServiceName);
         } else if (service.getServiceName().contains(mServiceName)) {
-          sendNotification("log", "Service found: " + service.getServiceName());
+          Log.d("log", "Service found: " + service.getServiceName());
           mNsdManager.resolveService(service, mResolveListener);
         }
       }
 
       @Override
       public void onServiceLost(NsdServiceInfo service) {
-        sendNotification("log", "service lost" + service);
+        Log.d("log", "service lost" + service);
         if (mService == service) {
           mService = null;
         }
@@ -70,18 +70,18 @@ public class NsdHelper {
 
       @Override
       public void onDiscoveryStopped(String serviceType) {
-        sendNotification("log", "Discovery stopped: " + serviceType);
+        Log.d("log", "Discovery stopped: " + serviceType);
       }
 
       @Override
       public void onStartDiscoveryFailed(String serviceType, int errorCode) {
-        sendNotification("error", "Discovery failed: Error code:" + errorCode);
+        Log.d("error", "Discovery failed: Error code:" + errorCode);
         mNsdManager.stopServiceDiscovery(this);
       }
 
       @Override
       public void onStopDiscoveryFailed(String serviceType, int errorCode) {
-        sendNotification("error", "Stop discovery failed: Error code:" + errorCode);
+        Log.d("error", "Stop discovery failed: Error code:" + errorCode);
         mNsdManager.stopServiceDiscovery(this);
       }
 
@@ -93,14 +93,14 @@ public class NsdHelper {
 
     @Override
     public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
-      sendNotification("log", "Resolve failed" + errorCode);
+      Log.d("log", "Resolve failed" + errorCode);
     }
 
     @Override
     public void onServiceResolved(NsdServiceInfo serviceInfo) {
-      sendNotification("log", "Resolve Succeeded. " + serviceInfo);
+      Log.d("log", "Resolve Succeeded. " + serviceInfo);
       if (serviceInfo.getServiceName().equals(mServiceName)) {
-        sendNotification("log", "Same IP.");
+        Log.d("log", "Same IP.");
       return;
       }
       mService = serviceInfo;
@@ -115,22 +115,22 @@ public class NsdHelper {
       @Override
       public void onServiceRegistered(NsdServiceInfo NsdServiceInfo) {
         mServiceName = NsdServiceInfo.getServiceName();
-        sendNotification("log", "Service registered: " + mServiceName);
+        Log.d("log", "Service registered: " + mServiceName);
       }
 
       @Override
       public void onRegistrationFailed(NsdServiceInfo arg0, int arg1) {
-        sendNotification("error", "Service registration failed");
+        Log.d("error", "Service registration failed");
       }
 
       @Override
       public void onServiceUnregistered(NsdServiceInfo arg0) {
-        sendNotification("log", "Service unregistered");
+        Log.d("log", "Service unregistered");
       }
 
       @Override
       public void onUnregistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
-        sendNotification("error", "Service unregistration failed");
+        Log.d("error", "Service unregistration failed");
       }
 
     };
@@ -160,7 +160,7 @@ public class NsdHelper {
     mNsdManager.unregisterService(mRegistrationListener);
   }
 
-  public void sendNotification(String type, String msg) {
+  public void Log.d(String type, String msg) {
     Bundle messageBundle = new Bundle();
     messageBundle.putString("type", type);
     messageBundle.putString("msg", msg);
