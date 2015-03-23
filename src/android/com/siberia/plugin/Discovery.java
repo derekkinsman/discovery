@@ -15,6 +15,7 @@ import android.util.Log;
 import android.net.nsd.NsdServiceInfo;
 
 import com.siberia.plugin.NsdHelper;
+import com.siberia.plugin.CallbackContextHandler;
 
 public class Discovery extends CordovaPlugin {
 
