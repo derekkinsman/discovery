@@ -7,11 +7,15 @@
     Discovery Plugin
   </description>
 
-  <asset src="www/DiscoveryPlugin.js" target="plugins/DiscoveryPlugin.js" />
+  <asset src="www/Discovery.js" target="plugins/src/com/siberia/plugin/Discovery.js" />
 
   <engines>
     <engine name="cordova" version=">=2.7.0" />
   </engines>
+
+  <js-module src="www/Discovery.js" name="Discovery">
+    <clobbers target="Discovery" />
+  </js-module>
 
   <!-- android -->
   <platform name="android">
