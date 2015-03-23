@@ -10,8 +10,8 @@ Discovery.prototype.advertizeChat = function(successCallback, errorCallback) {
     exec(successCallback, errorCallback, "Discovery", "advertizeChat", []);
 };
 
-Discovery.prototype.discoverChat = function(successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "Discovery", "discoverChat", []);
+Discovery.prototype.identify = function(successCallback, errorCallback) {
+    exec(successCallback, errorCallback, "Discovery", "identify", []);
 };
 
 Discovery.prototype.connectChat = function(successCallback, errorCallback) {
