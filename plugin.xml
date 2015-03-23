@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.siberia.discovery" version="0.0.1">
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" id="com.siberia.plugin.Discovery" version="1.0.0">
 
-  <name>Discovery</name>
-  <description>Discovery Description</description>
-  <author>Siberia</author>
-  <license>MIT License</license>
-  
+    <name>Discovery</name>
+
+  <description>
+    Disco Plugin
+  </description>
+
+  <asset src="www/DiscoveryPlugin.js" target="plugins/DiscoveryPlugin.js" />
+
   <engines>
-    <engine name="cordova" version=">=3.5.0" />
+    <engine name="cordova" version=">=2.7.0" />
   </engines>
-  
-  <js-module src="www/discovery.js" name="discovery">
-    <clobbers target="discovery" />
-  </js-module>
-  
+
+  <!-- android -->
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="Discovery"> 
-        <param name="android-package" value="com.siberia.discovery.Discovery"/>
+      <feature name="Discovery">
+          <param name="android-package" value="com.siberia.plugin.Discovery"/>
       </feature>
     </config-file>
-    <source-file src="src/android/src/com/siberia/discovery/Discovery.java" target-dir="src/siberia/discovery" />
-  </platform>
 
+    <source-file src="src/android/com/siberia/plugin/NsdHelper.java" target-dir="src/com/siberia/plugin" />
+    <source-file src="src/android/com/siberia/plugin/ChatConnection.java" target-dir="src/com/siberia/plugin" />
+    <source-file src="src/android/com/siberia/plugin/Disco.java" target-dir="src/com/diberia/plugin" />
+  </platform>
 </plugin>
