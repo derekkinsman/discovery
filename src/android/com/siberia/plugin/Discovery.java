@@ -9,33 +9,62 @@ import org.json.JSONException;
 
 import android.util.Log;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Discovery extends CordovaPlugin {
 
   public static final String TAG = "Discovery";
 
-  NsdHelper mNsdHelper;
+  private List<NsdHelper> helpers = new ArrayList<NsdHelper>();
+  private NsdHelper helper;
 
+  // CordovaPlugin {{{
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-    String serviceName = args.getString(0);
-    String serviceType = args.getString(1);
-    mNsdHelper = new NsdHelper(cordova.getActivity(), callbackContext, serviceName);
-
     if (action.equals("identify")) {
-      Log.d(TAG, "identify");
-      mNsdHelper.discoverServices(serviceType);
+      if (args.length() < 2) {
+        callbackContext.error("identify requires serviceName and serviceType as arguments");
+      }
+      final String serviceName = args.getString(0);
+      final String serviceType = args.getString(1);
+      Log.d(TAG, String.format("identify(%s, %s)", serviceName, serviceType));
+      this.identify(serviceName, serviceType, callbackContext);
     }
-
+    else if (action.equals("stopDiscovery")) {
+      this.stopDiscovery();
+    }
     else {
       callbackContext.error(String.format("Discovery - invalid action:", action));
       return false;
     }
 
-    // PluginResult.Status status = PluginResult.Status.NO_RESULT;
-    // PluginResult pluginResult = new PluginResult(status);
-    // pluginResult.setKeepCallback(true);
-    // callbackContext.sendPluginResult(pluginResult);
     return true;
+  }
+
+  @Override
+  public void onPause(final boolean multitasking) {
+    super.onPause(multitasking);
+    this.stopDiscovery();
+  }
+  // CordovaPlugin }}}
+
+  private void identify(final String serviceName,
+                        final String serviceType,
+                        final CallbackContext callbackContext) {
+    if (this.helper != null) {
+      this.helper.stopDiscovery();
+    }
+    final NsdHelper nsdHelper =
+        new NsdHelper(cordova.getActivity(), callbackContext, serviceType, serviceName);
+    this.helper = nsdHelper;
+    nsdHelper.discoverServices();
+  }
+
+  private void stopDiscovery() {
+    if (this.helper != null) {
+      this.helper.stopDiscovery();
+    }
   }
 
 }
