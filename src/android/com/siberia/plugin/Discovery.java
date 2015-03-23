@@ -30,21 +30,26 @@ public class Discovery extends CordovaPlugin {
       this.initChat(callbackContext);
     }
 
-    if (action.equals("advertizeChat")) {
+    else if (action.equals("advertizeChat")) {
       this.advertizeChat(callbackContext);
     }
 
-    if (action.equals("discoverChat")) {
-      this.discoverChat(callbackContext);
+    else if (action.equals("identify")) {
+      this.discoverServices(callbackContext);
     }
 
-    if (action.equals("connectChat")) {
+    else if (action.equals("connectChat")) {
       this.connectChat(callbackContext);
     }
 
-    if (action.equals("sendChatMessage")) {
+    else if (action.equals("sendChatMessage")) {
       String messageString = args.getString(0);
       this.sendChatMessage(callbackContext, messageString);
+    }
+
+    else {
+      callbackContext.error(String.format("Discovery - invalid action:", action));
+      return false;
     }
 
     PluginResult.Status status = PluginResult.Status.NO_RESULT;
@@ -99,7 +104,7 @@ public class Discovery extends CordovaPlugin {
     }
   }
 
-  private void discoverChat(CallbackContext callbackContext) {
+  private void identify(CallbackContext callbackContext) {
     final CallbackContext cbc = callbackContext;
     mNsdHelper.discoverServices();
   }
