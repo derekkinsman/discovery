@@ -82,11 +82,11 @@ public class Discovery extends CordovaPlugin {
         }
       };
 
-      mConnection = new ChatConnection(ccHandler);
-      //mConnection = new ChatConnection(mHandler);
+      // mConnection = new ChatConnection(ccHandler);
+      mConnection = new ChatConnection(mHandler);
 
-      mNsdHelper = new NsdHelper(cordova.getActivity(), ccHandler);
-      // mNsdHelper = new NsdHelper(cordova.getActivity(), mHandler);
+      // mNsdHelper = new NsdHelper(cordova.getActivity(), ccHandler);
+      mNsdHelper = new NsdHelper(cordova.getActivity(), mHandler);
       mNsdHelper.initializeNsd();
 
     } catch(Exception e) {
