@@ -67,7 +67,7 @@ public class Discovery extends CordovaPlugin {
             data.put("type", new String(type));
             data.put("data", new String(message));
           } catch(JSONException e) {
-            callbackContext.error("Error " + e);
+            data.error("Error " + e);
           }
 
           PluginResult result = new PluginResult(PluginResult.Status.OK, data);
