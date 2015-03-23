@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import java.net.InetAddress;
+
 public class NsdHelper {
 
   Context mContext;
