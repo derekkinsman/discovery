@@ -20,7 +20,7 @@ public class Discovery extends CordovaPlugin {
 
   NsdHelper mNsdHelper;
   private Handler mHandler;
-  ChatConnection mConnection;
+  // ChatConnection mConnection;
   // CallbackContextHandler ccHandler;
 
   @Override
