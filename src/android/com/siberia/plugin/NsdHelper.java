@@ -3,8 +3,6 @@ package com.siberia.plugin;
 import android.content.Context;
 import android.net.nsd.NsdServiceInfo;
 import android.net.nsd.NsdManager;
-
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -23,8 +21,9 @@ public class NsdHelper
 {
 
   public static final String TAG = "NsdHelper";
+  public static final int MSG_STOPPED = 2734980;
 
-  private final Context mContext;
+  private final Handler handler;
   private final CallbackContext mCallbackContext;
   private final NsdManager mNsdManager;
   private final String serviceName;
@@ -34,11 +33,12 @@ public class NsdHelper
   NsdManager.DiscoveryListener mDiscoveryListener = this;
 
   public NsdHelper(final Context context,
+                   final Handler.Callback handlerCallback,
                    final CallbackContext callbackContext,
                    final String serviceType,
                    final String serviceName) {
 
-    this.mContext = context;
+    this.handler = new Handler(handlerCallback);
     this.mCallbackContext = callbackContext;
     this.mNsdManager = (NsdManager) context.getSystemService(Context.NSD_SERVICE);
     this.serviceName = serviceName;
@@ -90,6 +90,7 @@ public class NsdHelper
   @Override
   public void onDiscoveryStopped(final String serviceType) {
     Log.i(TAG, "Discovery stopped: " + serviceType);
+    this.handler.obtainMessage(MSG_STOPPED).sendToTarget();
   }
 
   @Override
