@@ -33,15 +33,13 @@ public class NsdHelper
   NsdManager.ResolveListener mResolveListener;
   NsdManager.DiscoveryListener mDiscoveryListener = this;
 
-  public NsdHelper(final Context context,
-                   final CallbackContext callbackContext,
-                   final String serviceType,
-                   final String serviceName) {
+  // , final String serviceName
+  public NsdHelper(final Context context, final CallbackContext callbackContext, final String serviceType) {
 
     this.mContext = context;
     this.mCallbackContext = callbackContext;
     this.mNsdManager = (NsdManager) context.getSystemService(Context.NSD_SERVICE);
-    this.serviceName = serviceName;
+    // this.serviceName = serviceName;
     this.serviceType = serviceType;
   }
 
