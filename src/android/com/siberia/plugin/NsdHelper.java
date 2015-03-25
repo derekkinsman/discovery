@@ -79,7 +79,7 @@ public class NsdHelper
       Log.d(TAG, "Same machine: " + this.serviceName);
       mNsdManager.resolveService(service, this);
     } else if (service.getServiceName().contains(this.serviceName)) {
-      Log.d(TAG, "Same machine: " + this.serviceName);
+      // Log.d(TAG, "Same machine: " + this.serviceName);
       mNsdManager.resolveService(service, this);
     }
   }
