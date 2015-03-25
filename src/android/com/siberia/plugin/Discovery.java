@@ -7,12 +7,17 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.util.List;
 import java.util.ArrayList;
 
-public class Discovery extends CordovaPlugin {
+public class Discovery extends CordovaPlugin
+    implements
+        Handler.Callback
+{
 
   public static final String TAG = "Discovery";
 
@@ -49,6 +54,30 @@ public class Discovery extends CordovaPlugin {
   }
   // CordovaPlugin }}}
 
+  // Handler.Callback {{{
+  /**
+   * Listen for notification that {@link NsdHelper} has completed a
+   * discovery cycle so it can be cleared.
+   *
+   * @param message to examine.
+   *
+   * @return {@code true} if {@code message} has been handled.
+   */
+  public boolean handleMessage(final Message message) {
+    final boolean result;
+    switch (message.what) {
+    case NsdHelper.MSG_STOPPED:
+      this.helper = null;
+      result = true;
+      break;
+    default:
+      result = false;
+      break;
+    }
+    return result;
+  }
+  // Handler.Callback }}}
+
   private void identify(final String serviceName,
                         final String serviceType,
                         final CallbackContext callbackContext) {
@@ -56,7 +85,7 @@ public class Discovery extends CordovaPlugin {
       this.helper.stopDiscovery();
     }
     final NsdHelper nsdHelper =
-        new NsdHelper(cordova.getActivity(), callbackContext, serviceType, serviceName);
+        new NsdHelper(cordova.getActivity(), this, callbackContext, serviceType, serviceName);
     this.helper = nsdHelper;
     nsdHelper.discoverServices();
   }
