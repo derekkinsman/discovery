@@ -77,7 +77,9 @@ public class NsdHelper
       // The name of the service tells the user what they'd be
       // connecting to. It could be "Bob's Chat App".
       Log.d(TAG, "Same machine: " + this.serviceName);
+      mNsdManager.resolveService(service, this);
     } else if (service.getServiceName().contains(this.serviceName)) {
+      Log.d(TAG, "Same machine: " + this.serviceName);
       mNsdManager.resolveService(service, this);
     }
   }
