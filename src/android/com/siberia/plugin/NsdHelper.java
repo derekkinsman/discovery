@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import java.lang.String;
 import java.net.InetAddress;
 
 import org.apache.cordova.CallbackContext;
@@ -14,11 +15,7 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class NsdHelper
-    implements
-        NsdManager.DiscoveryListener,
-        NsdManager.ResolveListener
-{
+public class NsdHelper implements NsdManager.DiscoveryListener {
 
   public static final String TAG = "NsdHelper";
   public static final int MSG_STOPPED = 2734980;
@@ -78,7 +75,7 @@ public class NsdHelper
       // connecting to. It could be "Bob's Chat App".
       Log.d(TAG, "Same machine: " + this.serviceName);
     } else if (service.getServiceName().contains(this.serviceName)) {
-      mNsdManager.resolveService(service, this);
+      mNsdManager.resolveService(service, new ResolveListener(this.serviceName, mCallbackContext));
     }
   }
 
@@ -104,39 +101,46 @@ public class NsdHelper
     Log.e(TAG, "Stop Discovery failed: Error code:" + errorCode);
     this.mNsdManager.stopServiceDiscovery(this);
   }
-  // NsdManager.DiscoveryListener }}}
 
-  // NsdManager.ResolveListener {{{
-  @Override
-  public void onResolveFailed(final NsdServiceInfo serviceInfo, final int errorCode) {
-    // Called when the resolve fails.  Use the error code to debug.
-    Log.e(TAG, "Resolve failed" + errorCode);
-  }
+  private class ResolveListener implements NsdManager.ResolveListener {
 
-  @Override
-  public void onServiceResolved(final NsdServiceInfo serviceInfo) {
-    Log.e(TAG, "Resolve Succeeded. " + serviceInfo);
+    public String serviceName;
+    public CallbackContext mCallbackContext;
 
-    if (serviceInfo.getServiceName().equals(this.serviceName)) {
-      Log.d(TAG, "Same IP.");
-      return;
-    }
-    final int port = serviceInfo.getPort();
-    final InetAddress host = serviceInfo.getHost();
-    final String hostAddress = host.getHostAddress();
-
-    final JSONObject data = new JSONObject();
-    try {
-      data.put("port", port);
-      data.put("host", hostAddress);
-    } catch(JSONException e) {
-      Log.wtf(TAG, "Couldn't put data into JSONObject", e);
+    public ResolveListener(String serviceName, CallbackContext callbackContext) {
+      this.serviceName = serviceName;
+      this.mCallbackContext = callbackContext;
     }
 
-    final PluginResult result = new PluginResult(PluginResult.Status.OK, data);
-    result.setKeepCallback(true);
-    this.mCallbackContext.sendPluginResult(result);
-  }
-  // NsdManager.ResolveListener }}}
+    @Override
+    public void onResolveFailed(final NsdServiceInfo serviceInfo, final int errorCode) {
+      // Called when the resolve fails.  Use the error code to debug.
+      Log.e(TAG, "Resolve failed" + errorCode);
+    }
 
+    @Override
+    public void onServiceResolved(final NsdServiceInfo serviceInfo) {
+      Log.e(TAG, "Resolve Succeeded. " + serviceInfo);
+
+      if (serviceInfo.getServiceName().equals(this.serviceName)) {
+        Log.d(TAG, "Same IP.");
+        return;
+      }
+      final int port = serviceInfo.getPort();
+      final InetAddress host = serviceInfo.getHost();
+      final String hostAddress = host.getHostAddress();
+
+      final JSONObject data = new JSONObject();
+      try {
+        data.put("port", port);
+        data.put("host", hostAddress);
+      } catch (JSONException e) {
+        Log.wtf(TAG, "Couldn't put data into JSONObject", e);
+      }
+
+      final PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+      result.setKeepCallback(true);
+      this.mCallbackContext.sendPluginResult(result);
+    }
+  }
 }
