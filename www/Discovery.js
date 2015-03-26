@@ -1,6 +1,6 @@
 var exec = require('cordova/exec');
 
-function noOp() { }
+function noOp() { };
 
 var Discovery = {
 
